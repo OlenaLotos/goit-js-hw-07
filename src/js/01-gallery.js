@@ -1,27 +1,52 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
+//1//
 const listRef = document.querySelector('.gallery');
+const itemsMarkup = createGalleryItemMarkup(galleryItems);
 
-listRef.insertAdjacentHTML('afterbegin', galleryItems
-    .map(galleryItem => `
-  <a class="gallery__link" href="large-image.jpg">
+listRef.insertAdjacentHTML('afterbegin', itemsMarkup);
+
+console.log(createGalleryItemMarkup(galleryItems));
+
+function createGalleryItemMarkup(galleryItems) {
+  return galleryItems.map(({preview, original, description}) => {
+    return `<div class="gallery__item">
+  <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
-  </a>`)
-  .join(''));
+  </a>
+</div>`
+}) 
+.join('');
+}
+  
 
-// listRef.style.display = 'flex';
-// listRef.style.listStyle = "none";
-// listRef.style.justifyContent = "space-between";
-// listRef.querySelector("li").style.marginRight = "10 px";
-// listRef.querySelector("img").style.height = "400 px";
-// listRef.querySelector("img").style.objectFit = "cover";
-// console.log(listRef);
+//2//
+listRef.addEventListener('click', onGalleryCardsClick);
 
+function onGalleryCardsClick(event) {
+ event.preventDefault(); 
 
-console.log(galleryItems);
+ if (!event.target.classList.contains('gallery__image')) { 
+ return;
+} 
+console.log(event.target.dataset.description);
+}
+
+//   
+//   
+  // const target = event.target;
+  // if (target.nodeName !== 'IMG') {
+  //   return;
+  // }
+  // const image = target.dataset.source;
+  // const imageRef = document.querySelector('.big-image');
+  // imageRef.src = image;
+  // imageRef.alt = target.alt;
+  // imageRef.style.display = 'block';
+// }
