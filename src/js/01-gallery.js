@@ -2,6 +2,7 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
 //1//
+
 const listRef = document.querySelector('.gallery');
 const itemsMarkup = createGalleryItemMarkup(galleryItems);
 
@@ -35,18 +36,27 @@ function onGalleryCardsClick(event) {
  if (!event.target.classList.contains('gallery__image')) { 
  return;
 } 
-console.log(event.target.dataset.description);
+// console.log(event.target.dataset.description);
 }
 
-//   
-//   
-  // const target = event.target;
-  // if (target.nodeName !== 'IMG') {
-  //   return;
-  // }
-  // const image = target.dataset.source;
-  // const imageRef = document.querySelector('.big-image');
-  // imageRef.src = image;
-  // imageRef.alt = target.alt;
-  // imageRef.style.display = 'block';
-// }
+//4//
+
+document.querySelector('.gallery__image').onclick = () => {
+const instance = basicLightbox.create(`
+<a class="gallery__link" href="${original}">
+ <img
+    class="gallery__image"
+    data-source="${original}"
+    alt="${description}"
+ />
+ </a>
+`)
+
+instance.show()
+}
+
+
+
+
+
+
