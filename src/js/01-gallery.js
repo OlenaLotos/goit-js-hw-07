@@ -1,19 +1,15 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+const gallaryContainerRef = document.querySelector('.gallery');
+const gallaryitemsMarkup = createGalleryItemMarkup(galleryItems);
 
-//1//
-
-const listRef = document.querySelector('.gallery');
-const itemsMarkup = createGalleryItemMarkup(galleryItems);
-
-listRef.insertAdjacentHTML('afterbegin', itemsMarkup);
-
-console.log(createGalleryItemMarkup(galleryItems));
-
+gallaryContainerRef.insertAdjacentHTML('afterbegin', gallaryitemsMarkup);
+gallaryContainerRef.addEventListener('click', onGalleryCardsClick);
+// console.log(createGalleryItemMarkup(galleryItems));
 function createGalleryItemMarkup(galleryItems) {
   return galleryItems.map(({preview, original, description}) => {
     return `<div class="gallery__item">
-  <a class="gallery__link" href="${original}">
+  <a class="gallery__link" href="${original}" onclick = "event.preventDefault()">
     <img
       class="gallery__image"
       src="${preview}"
@@ -25,36 +21,20 @@ function createGalleryItemMarkup(galleryItems) {
 }) 
 .join('');
 }
-  
-
-//2//
-listRef.addEventListener('click', onGalleryCardsClick);
-
+ 
 function onGalleryCardsClick(event) {
- event.preventDefault(); 
-
+//  event.preventDefault(); 
  if (!event.target.classList.contains('gallery__image')) { 
- return;
-} 
-// console.log(event.target.dataset.description);
+ return;}
+ else {
+      const instance = basicLightbox.create(`
+       <img
+          src="${event.target.dataset.source}"/>
+      `);
+      instance.show();
+     }
+console.log(event.target);
 }
-
-//4//
-
-document.querySelector('.gallery__image').onclick = () => {
-const instance = basicLightbox.create(`
-<a class="gallery__link" href="${original}">
- <img
-    class="gallery__image"
-    data-source="${original}"
-    alt="${description}"
- />
- </a>
-`)
-
-instance.show()
-}
-
 
 
 
