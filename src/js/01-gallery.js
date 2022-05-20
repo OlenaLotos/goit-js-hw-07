@@ -35,8 +35,7 @@ function onGalleryCardsClick(event) {
  const instance = basicLightbox.create(`
   <img src="${event.target.dataset.source}"/>`
 );
-const galleryItem = event.target.classList.contains("gallery__image");
-if (!galleryItem) {
+if (!event.target.classList.contains("gallery__image")) {
   return;
 } else {
   instance.show();
